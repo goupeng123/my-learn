@@ -15,6 +15,14 @@ public class DelayController {
     @Autowired
     private QueueConsumer queueConsumer;
 
+    /**
+     * 添加延时任务
+     *
+     * @param id
+     * @param msgBody
+     * @param executeTime
+     * @return
+     */
     @RequestMapping(value = "add")
     public Object add(Long id, String msgBody, Long executeTime) {
 

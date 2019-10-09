@@ -20,7 +20,7 @@ public class DelayController {
      *
      * @param id
      * @param msgBody
-     * @param executeTime
+     * @param executeTime 毫秒值
      * @return
      */
     @RequestMapping(value = "add")

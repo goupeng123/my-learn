@@ -13,4 +13,8 @@ public interface DelayTaskMapper {
 
     List<DelayTaskEntity> listByExecuteTimeAndExecuteStatus(@Param("executeTime") Date executeTime,
                                                             @Param("executeStatus") Byte executeStatus);
+
+    int insertSelective(DelayTaskEntity delayTaskEntity);
+
+    int updateStatusBytaskId(@Param("executeStatus") Byte executeStatus, @Param("taskId") Long taskId);
 }

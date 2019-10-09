@@ -21,4 +21,14 @@ public class DelayTaskDao {
 
         return delayTaskMapper.listByExecuteTimeAndExecuteStatus(executeTime, executeStatus);
     }
+
+    public int insertSelective(DelayTaskEntity delayTaskEntity) {
+
+        return delayTaskMapper.insertSelective(delayTaskEntity);
+    }
+
+    public int updateStatusBytaskId(Byte executeStatus, Long taskId) {
+
+        return delayTaskMapper.updateStatusBytaskId(executeStatus, taskId);
+    }
 }

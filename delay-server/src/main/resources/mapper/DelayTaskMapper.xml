@@ -20,6 +20,25 @@
         <include refid="Base_Column_List"/>
         from tb_delay_task
         where execute_status=#{executeStatus,jdbcType=TINYINT}
-        and execute_time &lt; #{executeTime,jdbcType=TIMESTAMP}
+        and execute_time > #{executeTime,jdbcType=TIMESTAMP}
     </select>
+
+    <insert id="insertSelective" parameterType="com.my.delay.entity.DelayTaskEntity" keyProperty="id"
+            useGeneratedKeys="true">
+        insert into tb_delay_task (id,task_id,msg_body,execute_time,execute_num,execute_status) values
+        (
+          #{id,jdbcType=BIGINT},
+          #{taskId,jdbcType=BIGINT},
+          #{msgBody,jdbcType=VARCHAR},
+          #{executeTime,jdbcType=TIMESTAMP},
+          #{executeNum,jdbcType=BIGINT},
+          #{executeStatus,jdbcType=TINYINT}
+        )
+    </insert>
+
+    <update id="updateStatusBytaskId">
+        update tb_delay_task
+        set execute_status=#{executeStatus,jdbcType=TINYINT}
+        where task_id=#{taskId,jdbcType=BIGINT}
+    </update>
 </mapper>

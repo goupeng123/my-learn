@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -27,10 +28,12 @@ public class QueueConsumer {
     private DelayTaskDao delayTaskDao;
 
     private DelayQueue<DelayMessage> queue;
+    private Boolean signal;
 
     public QueueConsumer() {
 
         this.queue = new DelayQueue<DelayMessage>();
+        signal = Boolean.TRUE;
     }
 
     public void addDelayTask(Long id, String msgBody, Long executeTime) {
@@ -43,6 +46,12 @@ public class QueueConsumer {
         System.out.println("===============目前任务列表中有：" + queue.size() + " 个任务待执行===============");
     }
 
+    public void finish() {
+
+        this.signal = Boolean.FALSE;
+    }
+
+
     @PostConstruct
     public void init() {
 
@@ -52,7 +61,8 @@ public class QueueConsumer {
         exec.execute(new Runnable() {
             @Override
             public void run() {
-                while (true) {
+
+                while (signal) {
 
                     try {
 
@@ -78,6 +88,14 @@ public class QueueConsumer {
             System.out.println("加载延时任务完毕");
         }
     }
+
+
+    @PreDestroy
+    public void destory() {
+
+        finish();
+    }
+
 
     private DelayTaskEntity create(Long id, String msgBody, Long executeTime) {
 

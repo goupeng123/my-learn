@@ -33,7 +33,7 @@ public class App {
         // 部署流程定义文件
         RepositoryService repositoryService = engine.getRepositoryService();
         DeploymentBuilder deploymentBuilder = repositoryService.createDeployment();
-        deploymentBuilder.addClasspathResource("seconed_approval_1.xml");
+        deploymentBuilder.addClasspathResource("seconed_approval.bpmn");
         Deployment deployment = deploymentBuilder.deploy();
         String deploymentId = deployment.getId();
         ProcessDefinition processDefinition = repositoryService.createProcessDefinitionQuery()
